@@ -1,6 +1,6 @@
 <a id="top"></a>
 
-<p align="center"><img src="assets/banner.png" alt="JWT Inspector" width="100%"></p>
+<p align="center"><img src="assets/banner.svg" alt="JWT Inspector" width="100%"></p>
 
 <p align="center">
 <img alt="Python" src="https://img.shields.io/badge/Python-3.10+-EC4899?style=for-the-badge&logo=python&logoColor=white">
@@ -13,7 +13,7 @@
 
 <a id="sobre"></a>
 
-<p><img src="assets/secao-01.png" alt="Sobre o projeto" width="100%"></p>
+<p><img src="assets/secao-01.svg" alt="Sobre o projeto" width="100%"></p>
 
 Quase toda API que fiz no curso e no trabalho usa JWT para autenticação, e por muito tempo eu tratei aquele texto gigante começando com `eyJ` como uma caixa preta. Um dia descobri que o conteúdo dele **não é criptografado**, só codificado em base64. Qualquer pessoa que pegar o token consegue ler tudo o que está dentro.
 
@@ -21,7 +21,7 @@ O JWT Inspector abre o token, mostra o header e o payload com as datas em format
 
 <a id="como-funciona"></a>
 
-<p><img src="assets/secao-02.png" alt="Como funciona" width="100%"></p>
+<p><img src="assets/secao-02.svg" alt="Como funciona" width="100%"></p>
 
 ```mermaid
 flowchart LR
@@ -47,7 +47,7 @@ Na verificação de assinatura tem um detalhe que considero o mais importante do
 
 <a id="rodando"></a>
 
-<p><img src="assets/secao-03.png" alt="Rodando na sua máquina" width="100%"></p>
+<p><img src="assets/secao-03.svg" alt="Rodando na sua máquina" width="100%"></p>
 
 Só precisa de Python 3.10 ou mais novo.
 
@@ -73,7 +73,7 @@ pip install -r requirements-dev.txt
 python -m pytest -q
 ```
 
-<p><img src="assets/secao-04.png" alt="Exemplo de saída" width="100%"></p>
+<p><img src="assets/secao-04.svg" alt="Exemplo de saída" width="100%"></p>
 
 Um token de exemplo que eu gerei com o próprio projeto, com CPF fictício e validade de 30 dias.
 
@@ -103,7 +103,7 @@ Um token de exemplo que eu gerei com o próprio projeto, com CPF fictício e val
 
 <a id="aprendi"></a>
 
-<p><img src="assets/secao-05.png" alt="O que eu aprendi" width="100%"></p>
+<p><img src="assets/secao-05.svg" alt="O que eu aprendi" width="100%"></p>
 
 - A estrutura de um JWT e a diferença entre codificar e criptografar
 - Como o HMAC garante que ninguém alterou o payload, e o teste que prova isso
@@ -119,7 +119,7 @@ Próximos passos
 
 <a id="estudos"></a>
 
-<p><img src="assets/secao-06.png" alt="Estudei por aqui" width="100%"></p>
+<p><img src="assets/secao-06.svg" alt="Estudei por aqui" width="100%"></p>
 
 Segui essas aulas e materiais para entender e aplicar tudo que está aqui.
 
