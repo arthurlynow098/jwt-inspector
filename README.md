@@ -1,27 +1,29 @@
-<a id="top"></a>
+<p align="center"><sub>JWT Inspector</sub></p>
 
-<p align="center"><img src="assets/banner.svg" alt="JWT Inspector" width="100%"></p>
+---
 
 <p align="center">
-<img alt="Python" src="https://img.shields.io/badge/Python-3.10+-EC4899?style=for-the-badge&logo=python&logoColor=white">
-<img alt="Sem dependências" src="https://img.shields.io/badge/depend%C3%AAncias-zero-242424?style=for-the-badge">
-<a href="https://github.com/arthurlynow098/jwt-inspector/actions/workflows/testes.yml"><img alt="Testes" src="https://img.shields.io/github/actions/workflow/status/arthurlynow098/jwt-inspector/testes.yml?style=for-the-badge&label=testes&color=242424"></a>
-<img alt="Licença MIT" src="https://img.shields.io/badge/licen%C3%A7a-MIT-242424?style=for-the-badge">
+  <img src="assets/banner.png" alt="JWT Inspector" width="100%">
 </p>
 
-<p align="center"><a href="#sobre">Sobre</a> &nbsp;&nbsp; <a href="#como-funciona">Como funciona</a> &nbsp;&nbsp; <a href="#rodando">Rodando</a> &nbsp;&nbsp; <a href="#aprendi">O que aprendi</a> &nbsp;&nbsp; <a href="#estudos">Estudos</a></p>
+<p align="center">
+  Decodifica tokens JWT, verifica assinatura HMAC e audita a configuração
+</p>
 
-<a id="sobre"></a>
+<p align="center">
+  <img alt="Python" src="https://img.shields.io/badge/Python-3.10+-EC4899?style=for-the-badge&logo=python&logoColor=white">
+  <img alt="Sem dependências" src="https://img.shields.io/badge/depend%C3%AAncias-zero-242424?style=for-the-badge">
+  <a href="https://github.com/arthurlynow098/jwt-inspector/actions/workflows/testes.yml"><img alt="Testes" src="https://img.shields.io/github/actions/workflow/status/arthurlynow098/jwt-inspector/testes.yml?style=for-the-badge&label=testes&color=242424"></a>
+  <img alt="Licença MIT" src="https://img.shields.io/badge/licen%C3%A7a-MIT-242424?style=for-the-badge">
+</p>
 
-<p><img src="assets/secao-01.svg" alt="Sobre o projeto" width="100%"></p>
+## Sobre o projeto
 
 Quase toda API que fiz no curso e no trabalho usa JWT para autenticação, e por muito tempo eu tratei aquele texto gigante começando com `eyJ` como uma caixa preta. Um dia descobri que o conteúdo dele **não é criptografado**, só codificado em base64. Qualquer pessoa que pegar o token consegue ler tudo o que está dentro.
 
 O JWT Inspector abre o token, mostra o header e o payload com as datas em formato legível e audita a configuração. Ele aponta token sem prazo de validade, validade longa demais, CPF ou senha dentro do payload, algoritmo `none` e cabeçalhos que pedem para o servidor buscar a chave em outro lugar. Também confere a assinatura HMAC quando você informa o segredo.
 
-<a id="como-funciona"></a>
-
-<p><img src="assets/secao-02.svg" alt="Como funciona" width="100%"></p>
+## Como funciona
 
 ```mermaid
 flowchart LR
@@ -32,22 +34,15 @@ flowchart LR
     H & P & S --> V{HMAC confere?}
 ```
 
-| Verificação | Severidade | Por que |
-|---|---|---|
-| `alg` igual a `none` | crítica | Token sem assinatura nenhuma, nunca deveria ser aceito |
-| `jku`, `x5u` ou `jwk` no header | alta | O token tentando dizer ao servidor qual chave usar. Quem decide isso é o servidor |
-| Sem `exp` | alta | Se vazar, vale para sempre |
-| Dado sensível no payload | alta | CPF, senha, cartão. Fica legível para qualquer um |
-| Validade acima de 24h | média | Access token costuma durar minutos, o refresh token é que dura mais |
-| Sem `iss` ou `aud` | média | O servidor não consegue conferir quem emitiu e para quem |
-| `kid` com `/`, `..` ou aspas | média | O servidor precisa tratar esse campo como dado e validar |
-| `iat` no futuro | média | Relógio errado ou token forjado |
+## Tecnologias
 
-Na verificação de assinatura tem um detalhe que considero o mais importante do projeto. **A lista de algoritmos aceitos é decidida pelo servidor, nunca pelo campo `alg` do próprio token.** Os testes cobrem isso, um token assinado com HS512 é recusado quando o servidor só aceita HS256.
+<p>
+  <img alt="Python" src="https://img.shields.io/badge/Python-3776AB?style=flat-square&amp;logo=python&amp;logoColor=white">
+  <img alt="JWT" src="https://img.shields.io/badge/JWT-000000?style=flat-square&amp;logo=jsonwebtokens&amp;logoColor=white">
+  <img alt="HMAC" src="https://img.shields.io/badge/HMAC-2B2B2B?style=flat-square">
+</p>
 
-<a id="rodando"></a>
-
-<p><img src="assets/secao-03.svg" alt="Rodando na sua máquina" width="100%"></p>
+## Executando o código
 
 Só precisa de Python 3.10 ou mais novo.
 
@@ -73,7 +68,7 @@ pip install -r requirements-dev.txt
 python -m pytest -q
 ```
 
-<p><img src="assets/secao-04.svg" alt="Exemplo de saída" width="100%"></p>
+## Exemplo
 
 Um token de exemplo que eu gerei com o próprio projeto, com CPF fictício e validade de 30 dias.
 
@@ -101,25 +96,7 @@ Um token de exemplo que eu gerei com o próprio projeto, com CPF fictício e val
         quem verifica também consegue assinar, o segredo precisa ter 256 bits aleatórios e ficar só no servidor
 ```
 
-<a id="aprendi"></a>
-
-<p><img src="assets/secao-05.svg" alt="O que eu aprendi" width="100%"></p>
-
-- A estrutura de um JWT e a diferença entre codificar e criptografar
-- Como o HMAC garante que ninguém alterou o payload, e o teste que prova isso
-- Diferença entre assinatura simétrica (HS256) e assimétrica (RS256, ES256) e quando usar cada uma
-- Por que o servidor precisa fixar o algoritmo esperado
-- Claims padrão (`exp`, `iat`, `nbf`, `iss`, `aud`, `sub`) e o papel de cada uma
-
-Próximos passos
-
-- [ ] Verificar RS256 e ES256 usando a biblioteca `cryptography`
-- [ ] Ler a chave pública de um endpoint JWKS confiável configurado pelo usuário
-- [ ] Comparar com o que a PyJWT valida por padrão
-
-<a id="estudos"></a>
-
-<p><img src="assets/secao-06.svg" alt="Estudei por aqui" width="100%"></p>
+## Estudei por aqui
 
 Segui essas aulas e materiais para entender e aplicar tudo que está aqui.
 
@@ -131,6 +108,8 @@ Segui essas aulas e materiais para entender e aplicar tudo que está aqui.
 | [RFC 7519](https://www.rfc-editor.org/rfc/rfc7519) | A especificação oficial |
 | [OWASP REST Security Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/REST_Security_Cheat_Sheet.html) | Boas práticas de autenticação em API |
 
-<p align="center"><sub>Parte do <a href="https://github.com/arthurlynow098">Lince Lab</a>, minha coleção de projetos de cibersegurança</sub></p>
+## Licença
 
-<p align="center"><a href="#top">Voltar ao topo</a></p>
+Distribuído sob a licença MIT. Veja o arquivo [LICENSE](LICENSE).
+
+<p align="center"><sub>A gravura do banner é o camaleão do livro Introduction to Zoology, de 1900, em domínio público no <a href="https://commons.wikimedia.org/wiki/File%3AImage_from_page_291_of_%22Introduction_to_zoology%3B_a_guide_to_the_study_of_animals%2C_for_the_use_of_secondary_schools%3B%22_%281900%29_%2814598580847%29.jpg">Wikimedia Commons</a>.</sub></p>
